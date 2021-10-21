@@ -42,6 +42,8 @@ Start the Rails server
 bundle exec rails server
 ```
 And now you can visit the site with the URL http://localhost:3000
+And now you can visit the Sidekiq Dashboard with the URL http://localhost:3000/sidekiq and view the recurring_jobs Tab to see the Hourly Scehduled Job
+
 ## Running the tests
 To run test suits use the following commands
 ```

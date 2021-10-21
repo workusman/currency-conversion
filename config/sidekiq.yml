@@ -1,0 +1,6 @@
+:queues:
+  - default
+:schedule:
+  refresh_currency_rates_worker:
+    cron: '0 * * * *' # after every hour
+    class: RefreshCurrencyRatesWorker
