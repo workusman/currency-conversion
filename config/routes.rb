@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :projects, only: %i[create]
       resources :currency_rates, only: %i[index show]
+      get 'currency/conversion', to: 'currency_rates#conversion'
     end
   end
 end
