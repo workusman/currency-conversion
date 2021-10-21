@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
-      resources :projects, only: %i[ create ]
+      resources :projects, only: %i[create]
+      resources :currency_rates, only: %i[index show]
     end
   end
 end

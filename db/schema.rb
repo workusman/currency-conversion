@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_21_110149) do
+ActiveRecord::Schema.define(version: 2021_10_21_141909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(version: 2021_10_21_110149) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_api_keys_on_project_id"
+  end
+
+  create_table "currency_rates", force: :cascade do |t|
+    t.bigint "project_id"
+    t.string "base_currency"
+    t.json "rates"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_currency_rates_on_project_id"
   end
 
   create_table "projects", force: :cascade do |t|
