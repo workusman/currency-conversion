@@ -13,7 +13,18 @@ module ErrorHandler
       @message = message || 'Something went wrong'
     end
   end
+ 
+  class AuthenticationError < ErrorHandler::CustomError
+    def initialize
+      super(:unauthorized, 401, 'Requires an API key')
+    end
+  end
 
+  class Restricted < ErrorHandler::CustomError
+    def initialize
+      super(:forbidden, 403, 'Invalid Api Key')
+    end
+  end
   class AlreadyExist < ErrorHandler::CustomError
     def initialize
       super(:not_acceptable, 406, 'Already Exist')
@@ -25,6 +36,14 @@ module ErrorHandler
       respond(:internal_server_error, e)
     end
 
+    rescue_from AuthenticationError do |e|
+      respond(:unauthorized, e)
+    end
+
+    rescue_from Restricted do |e|
+      respond(:forbidden, e)
+    end
+    
     rescue_from ActiveRecord::RecordInvalid do |e|
       Rails.logger.info e
       flat_messages = e&.record&.errors&.map { |k, v| { k => v } }&.reduce(Hash.new, :merge)

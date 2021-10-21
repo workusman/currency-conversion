@@ -1,4 +1,6 @@
 class Api::V1::ProjectsController < Api::V1::BaseController
+  
+  skip_before_action :authenticate_request!, only: [:create]
 
   def create
     @project = Project.create!(project_params)

@@ -2,7 +2,7 @@ class ApiKey < ApplicationRecord
   belongs_to :project
   validates :token, presence: true, uniqueness: true
 
-  after_initialize :set_token
+  after_initialize :set_token, if: :new_record? 
 
   private
 
@@ -10,6 +10,6 @@ class ApiKey < ApplicationRecord
     self.token = loop do 
       generated_token = SecureRandom.hex
       break generated_token unless ApiKey.exists?(token: generated_token)
-    end 
+    end
   end
 end
